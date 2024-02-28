@@ -1,6 +1,18 @@
 <?php 
     require "./core/function.php";  
 
+    if (isset($_POST['add'])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $add = mysqli_query($conn, "INSERT INTO login (email, password) values ('$email','$password')");
+        if ($add) {
+            header('location:user.php');
+        } else {
+            header('location:user.php');
+        }
+    }
+
     if (isset($_POST['updateUser'])) {
         $id = $_POST['id'];
         $email = $_POST['email'];

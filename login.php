@@ -17,7 +17,13 @@
             header('location:index.php');
             // echo "data ada";
         } else {
-            header('location:login.php');
+            echo'
+                <script>
+                    alert("No account please contact admin")
+                    windows.location.href = login.php
+                </script>
+            ';
+            // header('location:login.php');
         }
     }
 

@@ -8,12 +8,6 @@
 
         $addDB = mysqli_query($conn, "INSERT INTO barang (idbarang, namabarang, jenisbarang, stock) values ('$id','$namaBarang','$jenis','$stock')");
         if ($addDB) {  
-            // echo'
-            //     <script>
-            //         alert("Succes")
-            //         windows.location.href="index.php"
-            //     </script>
-            // ';
             header('location:index.php');
         } else {
             header('location:index.php');
