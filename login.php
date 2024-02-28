@@ -1,19 +1,18 @@
 <?php 
     require "core/function.php";
  
-    
     // cek login terdaftar atau tidak
     if (isset($_POST['login'])) {
         $email = $_POST['email'];
         $pass = $_POST['password'];
 
-        $cekdata = mysqli_query($conn, "SELECT * FROM login where email='$email' and password='$pass'");
+        $cekdata = mysqli_query($conn, "SELECT iduser FROM login where email='$email' and password='$pass'");
         $countData = mysqli_num_rows($cekdata);
 
         if ($countData>0) {
-            
             $_SESSION['login'] = TRUE;
             $_SESSION['email'] = $email;
+            $_SESSION['userId'] = $cekdata->fetch_array(MYSQLI_BOTH)["iduser"];
             header('location:index.php');
             // echo "data ada";
         } else {
@@ -33,6 +32,7 @@
         header('location:index.php');
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

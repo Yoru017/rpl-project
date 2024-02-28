@@ -89,7 +89,8 @@
                                         <!-- Modal body -->
                                         <form method="post">
                                             <div class="modal-body">
-                                                <input type="text" name="idBarang" placeholder="id Barang" class="form-control my-3" required>
+                                                <input type="text" name="userId" id="userId" style="display: none;" value="<?php echo $_SESSION["userId"] ?>">
+                                                <input type="text" name="kodeBarang" placeholder="Kode Barang" class="form-control my-3" required>
                                                 <input type="text" name="namaBarang" placeholder="Nama Barang" class="form-control my-3" required>
                                                 <input type="text" name="jenis" placeholder="Jenis Barang" class="form-control my-3" required>
                                                 <input type="number" name="stock" class="form-control my-3" placeholder="stock barang" required>
@@ -141,7 +142,7 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>Jenis</th>
                                                 <th>Stock</th>
@@ -151,16 +152,19 @@
                                         <tbody>
                                             <!-- Tampilkan data dari database ke halaman web -->
                                             <?php 
-                                                $selectALL = mysqli_query($conn, "SELECT * FROM barang");
+                                                $userid = $_SESSION["userId"];
+                                                $selectALL = mysqli_query($conn, "SELECT * FROM barang WHERE owner_id='$userid'");
                                                 while ($data = mysqli_fetch_array($selectALL)) {
                                                     $idb = $data['idbarang'];
+                                                    $kodeb = $data['kode'];
                                                     $namabarang = $data['namabarang'];
                                                     $jenis = $data['jenisbarang'];
                                                     $stock = $data['stock'];
+                                                    $ownerId = $_SESSION['userId'];
                                             ?>
                                             
                                                     <tr>
-                                                        <td><?=$idb;?></td>
+                                                        <td><?=$kodeb;?></td>
                                                         <td><?=$namabarang;?></td>
                                                         <td><?=$jenis;?></td>
                                                         <td><?=$stock;?></td>
@@ -190,6 +194,8 @@
                                                                         <input type="number" name="stock" class="form-control my-3" value="<?=$stock;?>" required>
                                                                         <button type="submit" class="btn btn-warning my-3" name="updateBarang">Edit</button>
                                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
+                                                                        <input type="hidden" name="userId" value="<?=$ownerId;?>">
+                                                                        <input type="hidden" name="kodeb" value="<?=$kodeb;?>">
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -212,6 +218,8 @@
                                                                     <div class="modal-body">
                                                                         Hapus Barang <?=$namabarang;?>?
                                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
+                                                                        <input type="hidden" name="userId" value="<?=$ownerId;?>">
+                                                                        <input type="hidden" name="kodeb" value="<?=$kodeb;?>">
                                                                         <br>
                                                                         <button type="submit" class="btn btn-danger my-3" name="hapusBarang">Delete</button>
                                                                     </div>
